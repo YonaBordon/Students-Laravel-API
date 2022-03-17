@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Student;
 use Illuminate\Http\Request;
 
+//Creado con make:controller
+
 class StudentController extends Controller
 {
     public function index()
@@ -17,7 +19,6 @@ class StudentController extends Controller
             'students' => $students,
         ]);
     }
-    //Creado con make:controller
     public function store(Request $request)
     {
         $student = new Student;
@@ -30,6 +31,15 @@ class StudentController extends Controller
         return response()->json([
             'status' => 200,
             'message' => 'Student Added Successfully',
+        ]);
+    }
+
+    public function getStudent($id)
+    {
+        $student = Student::find($id);
+        return response()->json([
+            'status' => 200,
+            'student' => $student,
         ]);
     }
 }
