@@ -19,6 +19,31 @@ class StudentController extends Controller
             'students' => $students,
         ]);
     }
+
+    public function getStudent($id)
+    {
+        $student = Student::find($id);
+        return response()->json([
+            'status' => 200,
+            'student' => $student,
+        ]);
+    }
+
+    public function updateStudent(Request $request, $id)
+    {
+        $student = Student::find($id);
+        $student->name = $request->input('name');
+        $student->course = $request->input('course');
+        $student->email = $request->input('email');
+        $student->phone = $request->input('phone');
+        $student->update();
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'Student Updated Successfully',
+        ]);
+    }
+
     public function store(Request $request)
     {
         $student = new Student;
@@ -31,15 +56,6 @@ class StudentController extends Controller
         return response()->json([
             'status' => 200,
             'message' => 'Student Added Successfully',
-        ]);
-    }
-
-    public function getStudent($id)
-    {
-        $student = Student::find($id);
-        return response()->json([
-            'status' => 200,
-            'student' => $student,
         ]);
     }
 }
