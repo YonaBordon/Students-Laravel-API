@@ -29,6 +29,21 @@ class StudentController extends Controller
         ]);
     }
 
+    public function addStudent(Request $request)
+    {
+        $student = new Student;
+        $student->name = $request->input('name');
+        $student->course = $request->input('course');
+        $student->email = $request->input('email');
+        $student->phone = $request->input('phone');
+        $student->save();
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'Student Added Successfully',
+        ]);
+    }
+
     public function updateStudent(Request $request, $id)
     {
         $student = Student::find($id);
@@ -44,18 +59,13 @@ class StudentController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function deleteStudent($id)
     {
-        $student = new Student;
-        $student->name = $request->input('name');
-        $student->course = $request->input('course');
-        $student->email = $request->input('email');
-        $student->phone = $request->input('phone');
-        $student->save();
-
+        $student = Student::find($id);
+        $student->delete();
         return response()->json([
             'status' => 200,
-            'message' => 'Student Added Successfully',
+            'message' => 'Student Deleted Sucessfully',
         ]);
     }
 }
